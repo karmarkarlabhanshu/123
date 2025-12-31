@@ -213,10 +213,10 @@
             <img src="https://via.placeholder.com/150x150/ccffcc/000000?text=Chibi3" alt="Chibi Character 3" class="chibi" onclick="alert('Time for fireworks!')">
         </div>
         
-        <div class="countdown">
-            <p>Countdown to 31 December 2025:</p>
-            <div id="timer">Calculating...</div>
-        </div>
+       <div class="countdown">
+    <p>Countdown to 1 January 2026:</p>
+    <div id="timer">Calculating...</div>
+</div>
         
         <div class="resolution">
             <p>Share your New Year's Resolution:</p>
@@ -247,120 +247,118 @@
         <button onclick="backToMain()">Back to Main</button>
     </div>
     
-    <script>
-        // Countdown Timer
-        function updateCountdown() {
-            const now = new Date();
-            const targetDate = new Date(2025, 11, 31, 0, 0, 0); // December 31, 2025, 00:00:00
-            const diff = targetDate - now;
-            const time = calculateTime(diff);
-            
-            if (diff <= 0) {
-                document.getElementById('timer').innerText = "1 Jan 2026";
-                setTimeout(() => {
-                    document.getElementById('timer').innerText = "Happy New Year! 🎊";
-                    launchFireworks();
-                    document.getElementById('wishesButton').style.display = 'inline-block';
-                }, 1000); // Wait 1 second, then show Happy New Year and enable wishes
-                clearInterval(countdownInterval);
-            } else {
-                document.getElementById('timer').innerText = `${time.days}d ${time.hours}h ${time.minutes}m ${time.seconds}s`;
-            }
-        }
-        
-        // Calculate days, hours, etc.
-        function calculateTime(diff) {
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            return { days, hours, minutes, seconds };
-        }
-        
-        // Initial check on page load
-        let countdownInterval;
+  <script>
+    // Countdown Timer
+    function updateCountdown() {
         const now = new Date();
-        const targetDate = new Date(2025, 11, 31, 0, 0, 0);
-        const initialDiff = targetDate - now;
+        const targetDate = new Date(2026, 0, 1, 0, 0, 0); // January 1, 2026, 00:00:00
+        const diff = targetDate - now;
+        const time = calculateTime(diff);
         
-        if (initialDiff <= 0) {
-            // Already past the target - show Happy New Year immediately
+        if (diff <= 0) {
             document.getElementById('timer').innerText = "Happy New Year! 🎊";
             launchFireworks();
             document.getElementById('wishesButton').style.display = 'inline-block';
+            clearInterval(countdownInterval);
         } else {
-            // Start countdown
-            countdownInterval = setInterval(updateCountdown, 1000);
-            updateCountdown(); // Call once to display immediately
+            document.getElementById('timer').innerText = `${time.days}d ${time.hours}h ${time.minutes}m ${time.seconds}s`;
         }
+    }
+    
+    // Calculate days, hours, etc.
+    function calculateTime(diff) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        return { days, hours, minutes, seconds };
+    }
+    
+    // Initial check on page load
+    let countdownInterval;
+    const now = new Date();
+    const targetDate = new Date(2026, 0, 1, 0, 0, 0);
+    const initialDiff = targetDate - now;
+    
+    if (initialDiff <= 0) {
+        // Already past the target - show Happy New Year immediately
+        document.getElementById('timer').innerText = "Happy New Year! 🎊";
+        launchFireworks();
+        document.getElementById('wishesButton').style.display = 'inline-block';
+    } else {
+        // Start countdown
+        countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Call once to display immediately
+    }
+    
+    // Check and Go to Wishes
+    function checkAndGoToWishes() {
+        const now = new Date();
+        const targetDate = new Date(2026, 0, 1, 0, 0, 0);
+        const diff = targetDate - now;
         
-        // Check and Go to Wishes
-        function checkAndGoToWishes() {
-            const now = new Date();
-            const targetDate = new Date(2025, 11, 31, 0, 0, 0);
-            const diff = targetDate - now;
-            
-            if (diff <= 0) {
-                // It's time - go to wishes page
-                document.getElementById('mainPage').style.display = 'none';
-                document.getElementById('wishesPage').style.display = 'block';
-            } else {
-                // Not yet - show message
-                alert("Please wait till midnight to access the wishes page!");
-            }
+        if (diff <= 0) {
+            // It's time - go to wishes page
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('wishesPage').style.display = 'block';
+        } else {
+            // Not yet - show message
+            alert("Please wait till midnight to access the wishes page!");
         }
-        
-        // Add Resolution
-        function addResolution() {
-            const input = document.getElementById('resolutionInput');
-            const list = document.getElementById('resolutions');
-            if (input.value.trim()) {
-                const li = document.createElement('li');
-                li.textContent = input.value;
-                list.appendChild(li);
-                input.value = '';
-            }
+    }
+    
+    // Add Resolution
+    function addResolution() {
+        const input = document.getElementById('resolutionInput');
+        const list = document.getElementById('resolutions');
+        if (input.value.trim()) {
+            const li = document.createElement('li');
+            li.textContent = input.value;
+            list.appendChild(li);
+            input.value = '';
         }
-        
-        // Launch Fireworks
-        function launchFireworks() {
-            for (let i = 0; i < 20; i++) {
-                const firework = document.createElement('div');
-                firework.className = 'fireworks';
-                firework.style.left = Math.random() * (window.innerWidth - 20) + 'px';
-                firework.style.background = ['red', 'blue', 'green', 'yellow', 'purple'][Math.floor(Math.random() * 5)];
-                document.body.appendChild(firework);
-                setTimeout(() => firework.remove(), 3000);
-            }
+    }
+    
+    // Launch Fireworks
+    function launchFireworks() {
+        for (let i = 0; i < 20; i++) {
+            const firework = document.createElement('div');
+            firework.className = 'fireworks';
+            firework.style.left = Math.random() * (window.innerWidth - 20) + 'px';
+            firework.style.background = ['red', 'blue', 'green', 'yellow', 'purple'][Math.floor(Math.random() * 5)];
+            document.body.appendChild(firework);
+            setTimeout(() => firework.remove(), 3000);
         }
-        
-        // Back to Main
-        function backToMain() {
-            document.getElementById('wishesPage').style.display = 'none';
-            document.getElementById('mainPage').style.display = 'block';
+    }
+    
+    // Back to Main
+    function backToMain() {
+        document.getElementById('wishesPage').style.display = 'none';
+        document.getElementById('mainPage').style.display = 'block';
+    }
+    
+    // Add Photos
+    function addPhotos() {
+        const input = document.getElementById('photoInput');
+        const gallery = document.getElementById('photoGallery');
+        if (input.files.length > 0) {
+            Array.from(input.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = 'User Photo';
+                    gallery.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+            input.value = '';
         }
-        
-        // Add Photos
-        function addPhotos() {
-            const input = document.getElementById('photoInput');
-            const gallery = document.getElementById('photoGallery');
-            if (input.files.length > 0) {
-                Array.from(input.files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.alt = 'User Photo';
-                        gallery.appendChild(img);
-                    };
-                    reader.readAsDataURL(file);
-                });
-                input.value = '';
-            }
-        }
-    </script>
+    }
+</script>
 </body>
 </html>
+
 
 
 
