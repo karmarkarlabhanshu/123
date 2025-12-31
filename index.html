@@ -253,6 +253,7 @@
         const now = new Date();
         const newYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
         const diff = newYear - now;
+        const { days, hours, minutes, seconds } = calculateTime(diff);
         
         if (diff <= 0) {
             // If already past New Year's, show celebration
@@ -275,6 +276,7 @@
     }
     
     // Initial check on page load
+    let countdownInterval;
     const now = new Date();
     const newYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
     const initialDiff = newYear - now;
@@ -286,8 +288,8 @@
         document.getElementById('wishesButton').style.display = 'inline-block';
     } else {
         // Start countdown
-        const countdownInterval = setInterval(updateCountdown, 1000);
-        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Call once to display immediately
     }
     
     // Add Resolution
@@ -347,6 +349,7 @@
 </script>
 </body>
 </html>
+
 
 
 
