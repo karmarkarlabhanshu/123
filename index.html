@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year - Chibi Edition</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(to bottom, #001122, #003366);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px 4px #ff0000;
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px #ff0000; }
+            to { text-shadow: 2px 2px 8px #ffff00; }
+        }
+        .chibi-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .chibi {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 10px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .chibi:hover {
+            transform: scale(1.1);
+        }
+        .countdown {
+            font-size: 2em;
+            margin: 20px;
+        }
+        .resolution {
+            margin: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            border: none;
+            width: 80%;
+            max-width: 300px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background: #ff4500;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            margin: 10px;
+            min-width: 120px;
+            min-height: 50px;
+        }
+        button:hover {
+            background: #ff6347;
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        #wishesButton {
+            display: none;
+        }
+        .main-page {
+            display: block;
+        }
+        .wishes-page {
+            display: none;
+            padding: 20px;
+        }
+        .wishes-paragraph {
+            font-size: 1.5em;
+            margin: 20px auto;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .photo-gallery img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 10px;
+        }
+        .fireworks {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: red;
+            border-radius: 50%;
+            bottom: 0;
+            animation: rise 2s linear forwards, explode 1s ease-out 2s forwards;
+        }
+        @keyframes rise {
+            0% { bottom: 0; opacity: 1; }
+            100% { bottom: 90vh; opacity: 1; }
+        }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(10); opacity: 0; }
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            .chibi {
+                width: 100px;
+                height: 100px;
+                margin: 5px;
+            }
+            .countdown {
+                font-size: 1.5em;
+            }
+            .resolution {
+                margin: 10px;
+            }
+            input[type="text"] {
+                width: 90%;
+                font-size: 1em;
+            }
+            button {
+                font-size: 1em;
+                padding: 12px 24px;
+                min-width: 100px;
+                min-height: 45px;
+            }
+            .photo-gallery img {
+                max-width: 100px;
+                max-height: 100px;
+            }
+            .wishes-paragraph {
+                font-size: 1.2em;
+            }
+        }
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+            .chibi {
+                width: 80px;
+                height: 80px;
+            }
+            .countdown {
+                font-size: 1.2em;
+            }
+            button {
+                font-size: 0.9em;
+                padding: 10px 20px;
+                min-width: 90px;
+                min-height: 40px;
+            }
+            .photo-gallery img {
+                max-width: 80px;
+                max-height: 80px;
+            }
+            .wishes-paragraph {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-page" id="mainPage">
+        <h1>Happy New Year! 🎉</h1>
+        <p>Welcome to the cutest New Year celebration with chibi friends!</p>
+        
+        <div class="chibi-container">
+            <img src="YOUR_IMAGE_URL_HERE" alt="Chibi Character 1" class="chibi" onclick="alert('Happy New Year from Chibi!')">
+            <img src="https://via.placeholder.com/150x150/ccccff/000000?text=Chibi2" alt="Chibi Character 2" class="chibi" onclick="alert('Let\'s make resolutions!')">
+            <img src="https://via.placeholder.com/150x150/ccffcc/000000?text=Chibi3" alt="Chibi Character 3" class="chibi" onclick="alert('Time for fireworks!')">
+        </div>
+        
+        <div class="countdown">
+            <p>Countdown to Midnight:</p>
+            <div id="timer">Calculating...</div>
+        </div>
+        
+        <div class="resolution">
+            <p>Share your New Year's Resolution:</p>
+            <input type="text" id="resolutionInput" placeholder="e.g., Learn to code!">
+            <button onclick="addResolution()">Add Resolution</button>
+            <ul id="resolutions"></ul>
+        </div>
+        
+        <button onclick="launchFireworks()">Launch Fireworks!</button>
+        
+        <button id="wishesButton" onclick="showWishes()">Let's go to wishes</button>
+    </div>
+    
+    <div class="wishes-page" id="wishesPage">
+        <h1>New Year Wishes 🌟</h1>
+        <p class="wishes-paragraph">
+            As the clock strikes midnight and a new year begins, let's embrace the magic of fresh starts. May this year bring you joy, love, and endless adventures. Share your wishes with photos of cherished moments, dreams, and hopes. Here's to making memories that sparkle like fireworks in the night sky!
+        </p>
+        <div class="photo-gallery" id="photoGallery">
+            <!-- Pre-added photos -->
+            <img src="https://via.placeholder.com/150x150/ffff00/000000?text=Fireworks" alt="Pre-added Photo 1">
+            <img src="https://via.placeholder.com/150x150/00ffff/000000?text=Chibi+Party" alt="Pre-added Photo 2">
+            <img src="https://via.placeholder.com/150x150/ff00ff/000000?text=New+Year" alt="Pre-added Photo 3">
+        </div>
+        <input type="file" id="photoInput" accept="image/*" multiple>
+        <button onclick="addPhotos()">Add Your Photos</button>
+        <br><br>
+        <button onclick="backToMain()">Back to Main</button>
+    </div>
+    
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const newYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
+            const diff = newYear - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            if (diff <= 0) {
+                document.getElementById('timer').innerText = "Happy New Year! 🎊";
+                launchFireworks();
+                document.getElementById('wishesButton').style.display = 'inline-block';
+                clearInterval(countdownInterval);
+            } else {
+                document.getElementById('timer').innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+        }
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Add Resolution
+        function addResolution() {
+            const input = document.getElementById('resolutionInput');
+            const list = document.getElementById('resolutions');
+            if (input.value.trim()) {
+                const li = document.createElement('li');
+                li.textContent = input.value;
+                list.appendChild(li);
+                input.value = '';
+            }
+        }
+        
+        // Launch Fireworks
+        function launchFireworks() {
+            for (let i = 0; i < 20; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'fireworks';
+                firework.style.left = Math.random() * (window.innerWidth - 20) + 'px';
+                firework.style.background = ['red', 'blue', 'green', 'yellow', 'purple'][Math.floor(Math.random() * 5)];
+                document.body.appendChild(firework);
+                setTimeout(() => firework.remove(), 3000);
+            }
+        }
+        
+        // Show Wishes Page
+        function showWishes() {
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('wishesPage').style.display = 'block';
+        }
+        
+        // Back to Main
+        function backToMain() {
+            document.getElementById('wishesPage').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'block';
+        }
+        
+        // Add Photos
+        function addPhotos() {
+            const input = document.getElementById('photoInput');
+            const gallery = document.getElementById('photoGallery');
+            if (input.files.length > 0) {
+                Array.from(input.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = 'User Photo';
+                        gallery.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
+                input.value = '';
+            }
+        }
+    </script>
+</body>
+</html>
