@@ -244,70 +244,70 @@
         <button onclick="backToMain()">Back to Main</button>
     </div>
     
-    <script>
-        // Countdown Timer
-        function updateCountdown() {
-            const now = new Date();
-            const newYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
-            const diff = newYear - now;
-            const time = calculateTime(diff);
-            
-            if (diff <= 0) {
-                document.getElementById('timer').innerText = "Happy New Year! 🎊";
-                launchFireworks();
-                clearInterval(countdownInterval);
-            } else {
-                document.getElementById('timer').innerText = `${time.days}d ${time.hours}h ${time.minutes}m ${time.seconds}s`;
-            }
-        }
-        
-        // Calculate days, hours, etc.
-        function calculateTime(diff) {
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            return { days, hours, minutes, seconds };
-        }
-        
-        // Initial check on page load
-        let countdownInterval;
+   <script>
+    // Countdown Timer
+    function updateCountdown() {
         const now = new Date();
         const newYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
-        const initialDiff = newYear - now;
+        const diff = newYear - now;
+        const time = calculateTime(diff);
         
-        if (initialDiff <= 0) {
-            // Already past New Year's - show celebration immediately
-            document.getElementById('timer').innerText = "Happy New Year! 🎊";
+        if (diff <= 0) {
+            document.getElementById('timer').innerText = "0d 0h 0m 0s";
             launchFireworks();
+            clearInterval(countdownInterval);
         } else {
-            // Start countdown
-            countdownInterval = setInterval(updateCountdown, 1000);
-            updateCountdown(); // Call once to display immediately
+            document.getElementById('timer').innerText = `${time.days}d ${time.hours}h ${time.minutes}m ${time.seconds}s`;
         }
+    }
+    
+    // Calculate days, hours, etc.
+    function calculateTime(diff) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        return { days, hours, minutes, seconds };
+    }
+    
+    // Initial check on page load
+    let countdownInterval;
+    const now = new Date();
+    const newYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
+    const initialDiff = newYear - now;
+    
+    if (initialDiff <= 0) {
+        // Already past New Year's - show 0 and launch fireworks
+        document.getElementById('timer').innerText = "0d 0h 0m 0s";
+        launchFireworks();
+    } else {
+        // Start countdown
+        countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Call once to display immediately
+    }
+    
+    // Check and Go to Wishes
+    function checkAndGoToWishes() {
+        const now = new Date();
+        const newYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
+        const diff = newYear - now;
         
-        // Check and Go to Wishes
-        function checkAndGoToWishes() {
-            const now = new Date();
-            const newYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
-            const diff = newYear - now;
-            
-            if (diff <= 0) {
-                // It's New Year's - go to wishes page
-                document.getElementById('mainPage').style.display = 'none';
-                document.getElementById('wishesPage').style.display = 'block';
-            } else {
-                // Not yet - show message
-                alert("Please wait till midnight to access the wishes page!");
-            }
+        if (diff <= 0) {
+            // It's New Year's - go to wishes page
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('wishesPage').style.display = 'block';
+        } else {
+            // Not yet - show message
+            alert("Please wait till midnight to access the wishes page!");
         }
-        
-        // Add Resolution
-        function addResolution() {
-            const input = document.getElementById('resolutionInput');
-            const list = document.getElementById('resolutions');
-            if (input.value.trim()) {
-                const li = document.createElement('li');
+    }
+    
+    // Add Resolution
+    function addResolution() {
+        const input = document.getElementById('resolutionInput');
+        const list = document.getElementById('resolutions');
+        if (input.value.trim()) {
+            const li = document.createElement('li');
                 li.textContent = input.value;
                 list.appendChild(li);
                 input.value = '';
@@ -353,6 +353,7 @@
     </script>
 </body>
 </html>
+
 
 
 
